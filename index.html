@@ -1,0 +1,4091 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wanderly - Professional Travel & Holiday Booking</title>
+    <meta name="description" content="Discover popular destinations, find exclusive tour packages, book luxury hotels and transports, and plan your next memorable adventure with Wanderly." />
+    
+    
+    <style>
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap");
+
+:root {
+  /* Colors - Light Theme */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-rgb: 37, 99, 235;
+  --accent-light: #eff6ff;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --card-shadow: 0 12px 40px rgba(15, 23, 42, 0.04);
+  --nav-shadow: 0 4px 30px rgba(15, 23, 42, 0.03);
+  --border-color: #e2e8f0;
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glow-shadow: 0 0 20px rgba(37, 99, 235, 0.15);
+  
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+  
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
+body.dark-mode {
+  /* Colors - Dark Theme */
+  --bg-primary: #070b13;
+  --bg-secondary: #0f172a;
+  --bg-tertiary: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #64748b;
+  --accent: #3b82f6;
+  --accent-hover: #60a5fa;
+  --accent-rgb: 59, 130, 246;
+  --accent-light: rgba(59, 130, 246, 0.08);
+  --card-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  --nav-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  --border-color: #1e293b;
+  --glass-bg: rgba(15, 23, 42, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.03);
+  --glow-shadow: 0 0 25px rgba(59, 130, 246, 0.25);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-body);
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition-fast);
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+section {
+  padding: 6rem 1.5rem;
+  max-width: 1200px;
+  margin: auto;
+  position: relative;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Badge Utility */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: var(--radius-full);
+  background: var(--accent-light);
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+/* Title Block */
+.section-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 4rem auto;
+}
+.section-header h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+.section-header p {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.75rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: var(--transition-fast);
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: var(--glow-shadow);
+}
+.btn-primary:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+}
+.btn-secondary {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+.btn-secondary:hover {
+  background: var(--bg-tertiary);
+  transform: translateY(-2px);
+}
+.btn-outline {
+  background: transparent;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.btn-outline:hover {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: var(--bg-tertiary);
+  border: none;
+  color: var(--text-primary);
+  transition: var(--transition-fast);
+}
+.btn-icon:hover {
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+/* Sticky Header & Navbar */
+header {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--glass-border);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: var(--nav-shadow);
+  transition: background-color var(--transition), border-color var(--transition);
+}
+nav {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+}
+.logo {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.6rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.logo span {
+  color: var(--accent);
+}
+.nav-links {
+  display: flex;
+  gap: 2.25rem;
+  list-style: none;
+  align-items: center;
+}
+.nav-links a {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  position: relative;
+}
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--accent);
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: var(--transition-fast);
+}
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* Theme Toggle Button styling */
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.theme-toggle .sun-icon {
+  display: none;
+}
+body.dark-mode .theme-toggle .sun-icon {
+  display: block;
+}
+body.dark-mode .theme-toggle .moon-icon {
+  display: none;
+}
+
+/* Hamburger & Responsive Mobile Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+}
+.hamburger span {
+  width: 26px;
+  height: 3px;
+  background-color: var(--text-primary);
+  border-radius: 4px;
+  transition: var(--transition-fast);
+}
+.hamburger.open span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 300px;
+  height: 100vh;
+  background: var(--bg-secondary);
+  box-shadow: -10px 0 30px rgba(0,0,0,0.15);
+  padding: 6rem 2rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  z-index: 999;
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.mobile-nav.open {
+  right: 0;
+}
+.mobile-nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.mobile-nav a {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* HOME (Hero Section) */
+#home {
+  padding: 0;
+  height: 100vh;
+  min-height: 600px;
+  max-width: 100%;
+  position: relative;
+  background: url("https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#home::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.8) 100%);
+  z-index: 1;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #fff;
+  max-width: 800px;
+  padding: 0 1.5rem;
+}
+.hero-content h1 {
+  font-size: 4rem;
+  color: #fff;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  animation: fadeInUp 0.8s ease forwards;
+}
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  animation: fadeInUp 0.8s ease 0.2s forwards;
+  opacity: 0;
+}
+.hero-btns {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  animation: fadeInUp 0.8s ease 0.4s forwards;
+  opacity: 0;
+}
+
+/* SEARCH & BOOKING WIDGET */
+.booking-section {
+  padding-top: 0;
+  margin-top: -80px;
+  position: relative;
+  z-index: 10;
+}
+.search-widget {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  transition: border-color var(--transition), background-color var(--transition);
+}
+.widget-tabs {
+  display: flex;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+}
+.tab-btn {
+  flex: 1;
+  padding: 1.25rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  transition: var(--transition-fast);
+}
+.tab-btn svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2;
+}
+.tab-btn:hover {
+  color: var(--accent);
+}
+.tab-btn.active {
+  background: var(--bg-secondary);
+  color: var(--accent);
+  position: relative;
+}
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--accent);
+}
+.tab-pane {
+  display: none;
+  padding: 2rem;
+}
+.tab-pane.active {
+  display: block;
+  animation: fadeIn 0.4s ease;
+}
+.search-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  align-items: flex-end;
+}
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.input-group label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+.input-field-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-field-wrapper svg {
+  position: absolute;
+  left: 12px;
+  width: 18px;
+  height: 18px;
+  color: var(--text-muted);
+}
+.input-field-wrapper input,
+.input-field-wrapper select {
+  width: 100%;
+  padding: 0.85rem 1rem 0.85rem 2.5rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  outline: none;
+  transition: var(--transition-fast);
+}
+.input-field-wrapper input:focus,
+.input-field-wrapper select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+/* WHY CHOOSE US */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+.feature-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  text-align: center;
+  transition: var(--transition);
+  box-shadow: var(--card-shadow);
+}
+.feature-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent);
+}
+.icon-box {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--accent-light);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem auto;
+  transition: var(--transition);
+}
+.feature-card:hover .icon-box {
+  background: var(--accent);
+  color: #fff;
+  transform: scale(1.1);
+}
+.icon-box svg {
+  width: 28px;
+  height: 28px;
+  stroke-width: 2;
+}
+.feature-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+.feature-card p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* POPULAR DESTINATIONS & GENERIC CARD LAYOUT */
+.destinations-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.75rem;
+}
+.dest-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: var(--transition);
+  height: 400px;
+  position: relative;
+  cursor: pointer;
+}
+.dest-card:hover {
+  transform: translateY(-8px);
+}
+.card-img-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.dest-card img {
+  transition: transform 0.6s ease;
+}
+.dest-card:hover img {
+  transform: scale(1.1);
+}
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.2) 60%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  color: #fff;
+  z-index: 2;
+}
+.card-overlay h3 {
+  color: #fff;
+  font-size: 1.35rem;
+  margin-bottom: 0.25rem;
+}
+.card-overlay p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding-top: 0.75rem;
+}
+.card-meta .price {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #60a5fa;
+}
+.card-meta .rating {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+}
+.card-meta .rating svg {
+  width: 16px;
+  height: 16px;
+  fill: #fbbf24;
+  color: #fbbf24;
+}
+
+/* TOUR PACKAGES */
+.filter-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  padding: 0.6rem 1.5rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+.filter-btn:hover,
+.filter-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  box-shadow: var(--glow-shadow);
+}
+.packages-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+.package-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+.package-card:hover {
+  transform: translateY(-8px);
+}
+.package-img {
+  height: 220px;
+  position: relative;
+}
+.package-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.8rem;
+  border-radius: var(--radius-full);
+}
+.package-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.package-info {
+  display: flex;
+  gap: 1rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 0.75rem;
+}
+.package-info span {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.package-info svg {
+  width: 14px;
+  height: 14px;
+}
+.package-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+.package-card p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+.package-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+  margin-top: auto;
+}
+.package-price .price-from {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: block;
+}
+.package-price .amount {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+/* ABOUT US */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.about-images {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.about-img-box {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  height: 320px;
+}
+.about-img-box.offset {
+  transform: translateY(2rem);
+}
+.about-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+.about-content p {
+  margin-bottom: 1.25rem;
+  font-size: 1.05rem;
+}
+.about-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+.about-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.about-feature-item svg {
+  width: 20px;
+  height: 20px;
+  color: var(--success);
+}
+
+/* TRAVEL STATISTICS */
+.stats-banner {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+  color: #fff;
+  border-radius: var(--radius-lg);
+  padding: 4rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  text-align: center;
+  box-shadow: var(--glow-shadow);
+}
+.stat-item {
+  color: #fff;
+}
+.stat-number {
+  font-size: 3.5rem;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.stat-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* SPECIAL OFFERS */
+.offers-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+.offer-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  min-height: 280px;
+  transition: var(--transition);
+}
+.offer-card:hover {
+  transform: translateY(-5px);
+}
+.offer-img {
+  position: relative;
+}
+.offer-tag {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: var(--danger);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.8rem;
+  border-radius: var(--radius-full);
+}
+.offer-details {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.offer-details h3 {
+  font-size: 1.35rem;
+  margin-bottom: 0.5rem;
+}
+.offer-details p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+.offer-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.offer-price {
+  font-weight: 700;
+}
+.offer-price del {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-right: 0.5rem;
+}
+.offer-price span {
+  color: var(--danger);
+  font-size: 1.25rem;
+}
+
+/* PROMO BANNER WITH COUNTDOWN */
+.promo-banner {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 4rem;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  margin-top: 4rem;
+}
+.promo-content {
+  flex: 1.2;
+}
+.promo-content h3 {
+  font-size: 2.25rem;
+  margin-bottom: 1rem;
+}
+.promo-content p {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  margin-bottom: 1.5rem;
+}
+.countdown-container {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+.countdown-box {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 0.5rem;
+  text-align: center;
+  box-shadow: var(--card-shadow);
+}
+.countdown-box .count {
+  font-size: 2.25rem;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  color: var(--accent);
+  display: block;
+}
+.countdown-box .label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* UPCOMING TRIPS */
+.trips-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.trip-row {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.5rem 2rem;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.5fr 1fr;
+  align-items: center;
+  gap: 2rem;
+  transition: var(--transition);
+  box-shadow: var(--card-shadow);
+}
+.trip-row:hover {
+  transform: translateX(5px);
+  border-color: var(--accent);
+}
+.trip-date {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.trip-date .day {
+  font-size: 2.25rem;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+}
+.trip-date .month-year {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+}
+.trip-destination h4 {
+  font-size: 1.15rem;
+  margin-bottom: 0.25rem;
+}
+.trip-destination span {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.trip-seats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.trip-seats span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+}
+.seats-bar {
+  height: 8px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.seats-progress {
+  height: 100%;
+  background: var(--accent);
+  border-radius: var(--radius-full);
+}
+
+/* HOTEL BOOKING */
+.hotels-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.75rem;
+}
+.hotel-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+}
+.hotel-card:hover {
+  transform: translateY(-8px);
+}
+.hotel-img-wrapper {
+  height: 200px;
+  position: relative;
+}
+.hotel-rating-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.hotel-rating-badge svg {
+  width: 14px;
+  height: 14px;
+  fill: #fbbf24;
+  color: #fbbf24;
+}
+.hotel-content {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.hotel-content h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.25rem;
+}
+.hotel-location {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+.hotel-location svg {
+  width: 14px;
+  height: 14px;
+}
+.hotel-amenities {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+.amenity-tag {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+.hotel-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+  margin-top: auto;
+}
+.hotel-price span {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.hotel-price label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: block;
+}
+
+/* TRANSPORT SERVICES */
+.transport-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+.transport-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 3rem 2rem;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.transport-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.transport-header .transport-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  background: var(--accent-light);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.transport-header .transport-icon svg {
+  width: 28px;
+  height: 28px;
+}
+.transport-header h3 {
+  font-size: 1.5rem;
+}
+.transport-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.transport-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+.transport-info h4 {
+  font-size: 1.05rem;
+}
+.transport-info p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.transport-item .rate {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* FOOD & DINING */
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+.food-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: var(--transition);
+}
+.food-card:hover {
+  transform: translateY(-8px);
+}
+.food-img-wrapper {
+  height: 220px;
+}
+.food-content {
+  padding: 1.5rem;
+}
+.food-meta {
+  color: var(--warning);
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.food-meta svg {
+  width: 14px;
+  height: 14px;
+}
+.food-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+.food-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+}
+
+/* ADVENTURE ACTIVITIES */
+.adventure-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+.adv-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: var(--transition);
+  cursor: pointer;
+}
+.adv-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent);
+}
+.adv-img-box {
+  height: 180px;
+}
+.adv-content {
+  padding: 1.25rem;
+}
+.adv-content h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+.adv-level {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.adv-level .level-badge {
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+.adv-level .level-badge.easy {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success);
+}
+.adv-level .level-badge.medium {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--warning);
+}
+.adv-level .level-badge.hard {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger);
+}
+.adv-level .adv-price {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+/* TRAVEL GALLERY */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 240px;
+  gap: 1.25rem;
+}
+.gallery-item {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: zoom-in;
+  box-shadow: var(--card-shadow);
+}
+.gallery-item.wide {
+  grid-column: span 2;
+}
+.gallery-item.tall {
+  grid-row: span 2;
+}
+.gallery-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  opacity: 0;
+  transition: opacity var(--transition);
+  color: #fff;
+}
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+}
+.gallery-overlay h4 {
+  color: #fff;
+  font-size: 1.15rem;
+  margin-bottom: 0.25rem;
+}
+.gallery-overlay span {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* TRAVEL MAP */
+.map-container {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  padding: 2rem;
+  box-shadow: var(--card-shadow);
+  position: relative;
+}
+.map-canvas-mock {
+  width: 100%;
+  height: 450px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.map-canvas-mock svg {
+  width: 100%;
+  height: 100%;
+  opacity: 0.15;
+}
+body.dark-mode .map-canvas-mock svg {
+  opacity: 0.08;
+}
+.map-pin {
+  position: absolute;
+  cursor: pointer;
+  z-index: 5;
+  transition: var(--transition-fast);
+}
+.map-pin svg {
+  width: 32px;
+  height: 32px;
+  color: var(--danger);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  opacity: 1;
+}
+.map-pin:hover {
+  transform: scale(1.2);
+}
+.pin-label {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-5px);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--transition-fast);
+}
+.map-pin:hover .pin-label {
+  opacity: 1;
+}
+
+/* CUSTOMER REVIEWS (Slider) */
+.reviews-container {
+  max-width: 800px;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+}
+.reviews-slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+.review-slide {
+  min-width: 100%;
+  padding: 2rem;
+  text-align: center;
+}
+.review-content {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 3rem;
+  position: relative;
+  box-shadow: var(--card-shadow);
+}
+.review-content::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 15px;
+  border-style: solid;
+  border-color: var(--bg-secondary) transparent transparent transparent;
+}
+.review-content::before {
+  content: '“';
+  position: absolute;
+  top: 1.5rem;
+  left: 2rem;
+  font-size: 6rem;
+  color: var(--accent-light);
+  font-family: serif;
+  line-height: 1;
+}
+.review-text {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+.review-rating {
+  color: #fbbf24;
+  margin-bottom: 1.5rem;
+}
+.review-rating svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+.review-user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+.review-user-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+  border: 3px solid var(--accent);
+}
+.review-user-name {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.review-user-role {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.slider-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+.slider-control.prev {
+  left: 0;
+}
+.slider-control.next {
+  right: 0;
+}
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border-color);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+.dot.active {
+  background: var(--accent);
+  width: 24px;
+  border-radius: var(--radius-full);
+}
+
+/* FREQUENTLY ASKED QUESTIONS (FAQ) */
+.faq-container {
+  max-width: 800px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.faq-item {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: var(--transition);
+}
+.faq-item.active {
+  border-color: var(--accent);
+}
+.faq-trigger {
+  width: 100%;
+  padding: 1.5rem 2rem;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  text-align: left;
+}
+.faq-trigger h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.faq-trigger svg {
+  width: 20px;
+  height: 20px;
+  transition: transform var(--transition-fast);
+  color: var(--text-muted);
+}
+.faq-item.active .faq-trigger svg {
+  transform: rotate(180deg);
+  color: var(--accent);
+}
+.faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition) ease, padding var(--transition) ease;
+  padding: 0 2rem;
+}
+.faq-item.active .faq-content {
+  max-height: 200px;
+  padding: 0 2rem 1.5rem 2rem;
+}
+.faq-content p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+/* CONTACT US */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 4rem;
+}
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.contact-card {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+.contact-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--accent-light);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.contact-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.contact-details h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.25rem;
+}
+.contact-details p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+.contact-form-box {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  padding: 3rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--card-shadow);
+}
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.85rem 1.25rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  outline: none;
+  font-size: 0.95rem;
+  transition: var(--transition-fast);
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+/* NEWSLETTER */
+.newsletter-banner {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 4rem;
+  text-align: center;
+  max-width: 900px;
+  margin: 4rem auto 0 auto;
+  box-shadow: var(--card-shadow);
+}
+.newsletter-banner h2 {
+  font-size: 2.25rem;
+  margin-bottom: 1rem;
+}
+.newsletter-banner p {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.newsletter-form {
+  display: flex;
+  max-width: 500px;
+  margin: auto;
+  gap: 0.75rem;
+}
+.newsletter-form input {
+  flex-grow: 1;
+  padding: 0.85rem 1.25rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  outline: none;
+}
+.newsletter-form input:focus {
+  border-color: var(--accent);
+}
+
+/* FOOTER & SOCIAL LINKS */
+footer {
+  background: #0b0f19;
+  color: #94a3b8;
+  padding: 6rem 1.5rem 2rem 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.footer-grid {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 4rem;
+}
+.footer-info .logo {
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+.footer-info p {
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+.social-links {
+  display: flex;
+  gap: 0.75rem;
+}
+.social-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: var(--transition-fast);
+}
+.social-icon:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-3px);
+}
+.social-icon svg {
+  width: 18px;
+  height: 18px;
+}
+.footer-column h4 {
+  color: #fff;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+.footer-links a {
+  font-size: 0.95rem;
+  color: #94a3b8;
+}
+.footer-links a:hover {
+  color: #fff;
+  padding-left: 5px;
+}
+.footer-bottom {
+  max-width: 1200px;
+  margin: 4rem auto 0 auto;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+.footer-legal {
+  display: flex;
+  gap: 2rem;
+}
+
+/* INLINE LOGIN PORTAL WITH BACKGROUND IMAGE */
+#login {
+  max-width: 100%;
+  padding: 8rem 1.5rem;
+  background: url("https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80") center/cover no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#login::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(15, 23, 42, 0.6) 0%, rgba(15, 23, 42, 0.85) 100%);
+  z-index: 1;
+}
+.auth-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 480px;
+  margin: auto;
+}
+.auth-box {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  padding: 3rem 2.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--card-shadow);
+  color: var(--text-primary);
+}
+.auth-box .section-header {
+  margin-bottom: 2.25rem;
+  text-align: center;
+}
+.auth-box .section-header h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+.auth-box .section-header p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+.auth-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+  gap: 1.5rem;
+  justify-content: center;
+}
+.auth-tab-btn {
+  padding: 0.75rem 0.5rem;
+  background: none;
+  border: none;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  position: relative;
+  transition: var(--transition-fast);
+}
+.auth-tab-btn:hover {
+  color: var(--text-primary);
+}
+.auth-tab-btn.active {
+  color: var(--accent);
+}
+.auth-tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--accent);
+  border-radius: var(--radius-full);
+}
+.auth-form-panel {
+  display: none;
+  animation: fadeIn 0.4s ease;
+}
+.auth-form-panel.active {
+  display: block;
+}
+
+/* User Profile Panel Styles */
+.user-profile-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 2rem;
+}
+.user-profile-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 800;
+  box-shadow: var(--glow-shadow);
+}
+.user-profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: left;
+}
+.user-profile-details h3 {
+  font-size: 1.1rem;
+  word-break: break-all;
+}
+.user-badge-level {
+  align-self: flex-start;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--warning);
+  background: rgba(245, 158, 11, 0.1);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.user-profile-stats {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 1.25rem 0;
+  margin-bottom: 1.5rem;
+}
+.u-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+.u-stat strong {
+  font-size: 1.35rem;
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+}
+.u-stat span {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* BACK TO TOP BUTTON */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--glow-shadow);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, background-color var(--transition-fast);
+  z-index: 99;
+}
+.back-to-top.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.back-to-top:hover {
+  background: var(--accent-hover);
+  transform: translateY(-3px);
+}
+.back-to-top svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 3;
+}
+
+/* KEYFRAMES FOR TRANSITIONS & FADES */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVE LAYOUTS - MEDIA QUERIES */
+@media (max-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .destinations-grid,
+  .hotels-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .packages-grid,
+  .food-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 200px;
+  }
+  .gallery-item.wide {
+    grid-column: span 1;
+  }
+  .gallery-item.tall {
+    grid-row: span 1;
+  }
+  .stats-banner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .about-grid,
+  .contact-layout,
+  .transport-grid,
+  .offers-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .promo-banner {
+    flex-direction: column;
+    padding: 2.5rem;
+    gap: 2rem;
+  }
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+  }
+  .footer-info {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 4rem 1rem;
+  }
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+  .hero-content p {
+    font-size: 1rem;
+  }
+  .hero-btns {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .nav-links,
+  .nav-actions .btn-login {
+    display: none;
+  }
+  .hamburger {
+    display: flex;
+  }
+  .search-grid {
+    grid-template-columns: 1fr;
+  }
+  .booking-section {
+    margin-top: -40px;
+    padding: 0 1rem;
+  }
+  .trip-row {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    text-align: center;
+  }
+  .trip-date {
+    justify-content: center;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .contact-form-box {
+    padding: 2rem 1.5rem;
+  }
+  .newsletter-form {
+    flex-direction: column;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 520px) {
+  .features-grid,
+  .destinations-grid,
+  .packages-grid,
+  .hotels-grid,
+  .food-grid,
+  .adventure-grid,
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+  .offer-card {
+    grid-template-columns: 1fr;
+  }
+  .offer-img {
+    height: 180px;
+  }
+  .countdown-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+</style>
+    
+    
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
+  initMobileMenu();
+  initInlineAuth();
+  initBookingTabs();
+  initTourFilter();
+  initStatsCounter();
+  initCountdown();
+  initReviewsSlider();
+  initFaqAccordion();
+  initBackToTop();
+  initGalleryZoom();
+  initMapPins();
+});
+
+// 1. Theme Engine (Light / Dark Mode)
+function initTheme() {
+  const themeToggle = document.querySelector('.theme-toggle');
+  if (!themeToggle) return;
+
+  let currentTheme = 'light';
+  try {
+    currentTheme = localStorage.getItem('theme') || 'light';
+  } catch (e) {
+    console.warn('Storage blocked: Using default theme.');
+  }
+
+  if (currentTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+  }
+
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+    try {
+      localStorage.setItem('theme', theme);
+    } catch (e) {
+      console.warn('Storage blocked: Cannot save theme preference.');
+    }
+  });
+}
+
+// 2. Mobile Menu Navigation
+function initMobileMenu() {
+  const hamburger = document.querySelector('.hamburger');
+  const mobileNav = document.querySelector('.mobile-nav');
+  const mobileLinks = document.querySelectorAll('.mobile-nav a');
+
+  if (!hamburger || !mobileNav) return;
+
+  const toggleMenu = () => {
+    hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+    document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+  };
+
+  hamburger.addEventListener('click', toggleMenu);
+
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileNav.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+}
+
+// 3. Login / Sign Up Inline Portal
+function initInlineAuth() {
+  const tabBtns = document.querySelectorAll('.auth-tab-btn');
+  const formPanels = document.querySelectorAll('.auth-form-panel');
+  const authTriggers = document.querySelectorAll('.auth-trigger, .btn-login');
+
+  const formsContainer = document.getElementById('auth-forms-container');
+  const loggedInContainer = document.getElementById('auth-logged-in-container');
+
+  const headerLoginBtn = document.getElementById('header-login-btn');
+  const headerUserProfile = document.getElementById('header-user-profile');
+  const headerAvatarTxt = document.getElementById('header-avatar-txt');
+  const headerLogoutBtn = document.getElementById('header-logout-btn');
+
+  const mobileLoginBtn = document.getElementById('mobile-login-btn');
+  const mobileUserProfile = document.getElementById('mobile-user-profile');
+  const mobileAvatarEmail = document.getElementById('mobile-avatar-email');
+  const mobileLogoutBtn = document.getElementById('mobile-logout-btn');
+
+  const userProfileEmail = document.getElementById('user-profile-email');
+  const userAvatarChar = document.getElementById('user-avatar-char');
+  const inlineLogoutBtn = document.getElementById('btn-inline-logout');
+
+  // In-memory fallback if session storage is blocked
+  const mockSession = {
+    isLoggedIn: 'false',
+    userEmail: '',
+    getItem(key) {
+      try {
+        return sessionStorage.getItem(key);
+      } catch (e) {
+        return this[key];
+      }
+    },
+    setItem(key, val) {
+      try {
+        sessionStorage.setItem(key, val);
+      } catch (e) {
+        this[key] = String(val);
+      }
+    },
+    removeItem(key) {
+      try {
+        sessionStorage.removeItem(key);
+      } catch (e) {
+        this[key] = key === 'isLoggedIn' ? 'false' : '';
+      }
+    }
+  };
+
+  const updateLoginUI = () => {
+    const isLoggedIn = mockSession.getItem('isLoggedIn') === 'true';
+    const email = mockSession.getItem('userEmail') || '';
+
+    if (isLoggedIn) {
+      if (formsContainer) formsContainer.style.display = 'none';
+      if (loggedInContainer) loggedInContainer.style.display = 'block';
+
+      if (userProfileEmail) userProfileEmail.textContent = email;
+      if (userAvatarChar) {
+        userAvatarChar.textContent = email.charAt(0).toUpperCase();
+      }
+
+      if (headerLoginBtn) headerLoginBtn.style.display = 'none';
+      if (headerUserProfile) headerUserProfile.style.display = 'flex';
+      if (headerAvatarTxt) {
+        headerAvatarTxt.textContent = email.charAt(0).toUpperCase();
+      }
+
+      if (mobileLoginBtn) mobileLoginBtn.style.display = 'none';
+      if (mobileUserProfile) mobileUserProfile.style.display = 'flex';
+      if (mobileAvatarEmail) {
+        mobileAvatarEmail.textContent = `Logged in as ${email}`;
+      }
+    } else {
+      if (formsContainer) formsContainer.style.display = 'block';
+      if (loggedInContainer) loggedInContainer.style.display = 'none';
+
+      if (headerLoginBtn) headerLoginBtn.style.display = 'inline-flex';
+      if (headerUserProfile) headerUserProfile.style.display = 'none';
+
+      if (mobileLoginBtn) mobileLoginBtn.style.display = 'block';
+      if (mobileUserProfile) mobileUserProfile.style.display = 'none';
+    }
+  };
+
+  const loginUser = (email) => {
+    mockSession.setItem('isLoggedIn', 'true');
+    mockSession.setItem('userEmail', email);
+    updateLoginUI();
+    alert(`Welcome back, ${email.split('@')[0]}! Logged in successfully.`);
+    document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const logoutUser = () => {
+    mockSession.removeItem('isLoggedIn');
+    mockSession.removeItem('userEmail');
+    updateLoginUI();
+    alert('Logged out successfully. See you next time!');
+  };
+
+  if (tabBtns.length > 0) {
+    const switchTab = (tabName) => {
+      tabBtns.forEach(btn => {
+        if (btn.dataset.tab === tabName) btn.classList.add('active');
+        else btn.classList.remove('active');
+      });
+      formPanels.forEach(panel => {
+        if (panel.id === `inline-${tabName}-form`) panel.classList.add('active');
+        else panel.classList.remove('active');
+      });
+    };
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        switchTab(btn.dataset.tab);
+      });
+    });
+  }
+
+  authTriggers.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const href = btn.getAttribute('href');
+      if (!href || href === '#login') {
+        e.preventDefault();
+        const target = document.getElementById('login');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  });
+
+  const inlineLoginForm = document.getElementById('inline-login-form');
+  if (inlineLoginForm) {
+    inlineLoginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const emailField = document.getElementById('inline-login-email');
+      if (emailField) {
+        loginUser(emailField.value);
+      }
+    });
+  }
+
+  const inlineSignupForm = document.getElementById('inline-signup-form');
+  if (inlineSignupForm) {
+    inlineSignupForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const emailField = document.getElementById('inline-reg-email');
+      if (emailField) {
+        loginUser(emailField.value);
+      }
+    });
+  }
+
+  if (headerLogoutBtn) headerLogoutBtn.addEventListener('click', logoutUser);
+  if (mobileLogoutBtn) mobileLogoutBtn.addEventListener('click', logoutUser);
+  if (inlineLogoutBtn) inlineLogoutBtn.addEventListener('click', logoutUser);
+
+  updateLoginUI();
+}
+
+// 4. Booking Search Tabs
+function initBookingTabs() {
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabPanes = document.querySelectorAll('.tab-pane');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabPanes.forEach(p => p.classList.remove('active'));
+
+      btn.classList.add('active');
+      const paneId = btn.dataset.tab;
+      const targetPane = document.getElementById(`${paneId}-pane`);
+      if (targetPane) {
+        targetPane.classList.add('active');
+      }
+    });
+  });
+
+  // Mock search alerts
+  const searchForms = document.querySelectorAll('.tab-pane form');
+  searchForms.forEach(form => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Searching for available options. Please wait...');
+    });
+  });
+}
+
+// 5. Tour Packages Filtering
+function initTourFilter() {
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const packageCards = document.querySelectorAll('.package-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filterValue = btn.dataset.filter;
+
+      packageCards.forEach(card => {
+        if (filterValue === 'all' || card.dataset.category === filterValue) {
+          card.style.display = 'flex';
+          setTimeout(() => card.style.opacity = '1', 50);
+        } else {
+          card.style.opacity = '0';
+          setTimeout(() => card.style.display = 'none', 300);
+        }
+      });
+    });
+  });
+}
+
+// 6. Statistics Counter Animation
+function initStatsCounter() {
+  const statNumbers = document.querySelectorAll('.stat-number');
+  if (statNumbers.length === 0) return;
+
+  const animateCount = (element) => {
+    const target = parseInt(element.dataset.target, 10);
+    const suffix = element.dataset.suffix || '';
+    let count = 0;
+    const duration = 2000; // 2 seconds
+    const stepTime = Math.max(Math.floor(duration / target), 15);
+
+    const timer = setInterval(() => {
+      count += Math.ceil(target / (duration / stepTime));
+      if (count >= target) {
+        element.textContent = target + suffix;
+        clearInterval(timer);
+      } else {
+        element.textContent = count + suffix;
+      }
+    }, stepTime);
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCount(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  statNumbers.forEach(num => observer.observe(num));
+}
+
+// 7. Special Offers Countdown Timer
+function initCountdown() {
+  const countdownElements = {
+    days: document.getElementById('cd-days'),
+    hours: document.getElementById('cd-hours'),
+    minutes: document.getElementById('cd-minutes'),
+    seconds: document.getElementById('cd-seconds')
+  };
+
+  if (!countdownElements.days) return;
+
+  // Set target date to 30 days in the future
+  let targetDate = new Date();
+  targetDate.setDate(targetDate.getDate() + 15); // 15 days count down
+
+  const updateCountdown = () => {
+    const now = new Date().getTime();
+    const distance = targetDate.getTime() - now;
+
+    if (distance < 0) {
+      clearInterval(interval);
+      document.querySelector('.countdown-container').innerHTML = '<p style="color: var(--danger); font-weight: 700;">OFFER EXPIRED</p>';
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    countdownElements.days.textContent = String(days).padStart(2, '0');
+    countdownElements.hours.textContent = String(hours).padStart(2, '0');
+    countdownElements.minutes.textContent = String(minutes).padStart(2, '0');
+    countdownElements.seconds.textContent = String(seconds).padStart(2, '0');
+  };
+
+  const interval = setInterval(updateCountdown, 1000);
+  updateCountdown(); // Run immediately
+}
+
+// 8. Testimonials (Customer Reviews) Slider
+function initReviewsSlider() {
+  const slider = document.querySelector('.reviews-slider');
+  const slides = document.querySelectorAll('.review-slide');
+  const prevBtn = document.querySelector('.slider-control.prev');
+  const nextBtn = document.querySelector('.slider-control.next');
+  const dotsContainer = document.querySelector('.slider-dots');
+
+  if (!slider || slides.length === 0) return;
+
+  let currentIndex = 0;
+  let autoPlayTimer;
+
+  // Create indicator dots
+  slides.forEach((_, index) => {
+    const dot = document.createElement('div');
+    dot.classList.add('dot');
+    if (index === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => {
+      goToSlide(index);
+      resetAutoPlay();
+    });
+    dotsContainer.appendChild(dot);
+  });
+
+  const dots = document.querySelectorAll('.slider-dots .dot');
+
+  const goToSlide = (index) => {
+    currentIndex = (index + slides.length) % slides.length;
+    slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+    
+    dots.forEach((dot, idx) => {
+      if (idx === currentIndex) dot.classList.add('active');
+      else dot.classList.remove('active');
+    });
+  };
+
+  const nextSlide = () => goToSlide(currentIndex + 1);
+  const prevSlide = () => goToSlide(currentIndex - 1);
+
+  if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); resetAutoPlay(); });
+  if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); resetAutoPlay(); });
+
+  const startAutoPlay = () => {
+    autoPlayTimer = setInterval(nextSlide, 5000);
+  };
+
+  const resetAutoPlay = () => {
+    clearInterval(autoPlayTimer);
+    startAutoPlay();
+  };
+
+  startAutoPlay();
+}
+
+// 9. Accordion Q&A (FAQ)
+function initFaqAccordion() {
+  const faqItems = document.querySelectorAll('.faq-item');
+
+  faqItems.forEach(item => {
+    const trigger = item.querySelector('.faq-trigger');
+    const content = item.querySelector('.faq-content');
+
+    trigger.addEventListener('click', () => {
+      const isActive = item.classList.contains('active');
+
+      // Close all accordions
+      faqItems.forEach(otherItem => {
+        otherItem.classList.remove('active');
+        otherItem.querySelector('.faq-content').style.maxHeight = null;
+      });
+
+      if (!isActive) {
+        item.classList.add('active');
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    });
+  });
+}
+
+// 10. Scroll Back to Top Button
+function initBackToTop() {
+  const backToTopBtn = document.querySelector('.back-to-top');
+  if (!backToTopBtn) return;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      backToTopBtn.classList.add('show');
+    } else {
+      backToTopBtn.classList.remove('show');
+    }
+  });
+
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+}
+
+// 11. Lightbox Gallery Image Zoom
+function initGalleryZoom() {
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  
+  galleryItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const img = item.querySelector('img');
+      if (!img) return;
+
+      const lightbox = document.createElement('div');
+      lightbox.style.position = 'fixed';
+      lightbox.style.top = '0';
+      lightbox.style.left = '0';
+      lightbox.style.width = '100vw';
+      lightbox.style.height = '100vh';
+      lightbox.style.backgroundColor = 'rgba(15, 23, 42, 0.9)';
+      lightbox.style.backdropFilter = 'blur(8px)';
+      lightbox.style.zIndex = '3000';
+      lightbox.style.display = 'flex';
+      lightbox.style.alignItems = 'center';
+      lightbox.style.justifyContent = 'center';
+      lightbox.style.cursor = 'zoom-out';
+      lightbox.style.opacity = '0';
+      lightbox.style.transition = 'opacity 0.3s ease';
+
+      const largeImg = document.createElement('img');
+      largeImg.src = img.src;
+      largeImg.style.maxWidth = '90%';
+      largeImg.style.maxHeight = '90%';
+      largeImg.style.borderRadius = '12px';
+      largeImg.style.boxShadow = '0 20px 50px rgba(0,0,0,0.5)';
+      largeImg.style.transform = 'scale(0.9)';
+      largeImg.style.transition = 'transform 0.3s ease';
+
+      lightbox.appendChild(largeImg);
+      document.body.appendChild(lightbox);
+
+      // Trigger transition
+      setTimeout(() => {
+        lightbox.style.opacity = '1';
+        largeImg.style.transform = 'scale(1)';
+      }, 50);
+
+      lightbox.addEventListener('click', () => {
+        lightbox.style.opacity = '0';
+        largeImg.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+          lightbox.remove();
+        }, 300);
+      });
+    });
+  });
+}
+
+// 12. Interactive Travel Map Pins Interaction
+function initMapPins() {
+  const mapPins = document.querySelectorAll('.map-pin');
+  mapPins.forEach(pin => {
+    pin.addEventListener('click', () => {
+      const location = pin.dataset.location;
+      const price = pin.dataset.price;
+      alert(`Explore ${location}! Standard packages starting from ${price}.`);
+    });
+  });
+}
+
+</script>
+  </head>
+  <body>
+    <!-- HEADER & NAVIGATION -->
+    <header id="site-header">
+      <nav aria-label="Main Navigation">
+        <a href="#home" class="logo" id="logo-link">
+          <span>✈</span> Wanderly
+        </a>
+        <ul class="nav-links" id="desktop-menu">
+          <li><a href="#home" class="active">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#destinations">Destinations</a></li>
+          <li><a href="#packages">Packages</a></li>
+          <li><a href="#hotels">Hotels</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <!-- Dark Mode Toggle Button (Sun/Moon icons) -->
+          <button class="btn-icon theme-toggle" id="theme-toggle-btn" aria-label="Toggle dark mode">
+            <svg class="moon-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg class="sun-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+          <div class="header-auth-wrapper" style="display: flex; align-items: center;">
+            <a href="#login" class="btn btn-primary" id="header-login-btn">Login</a>
+            <div id="header-user-profile" style="display: none; align-items: center; gap: 1rem;">
+              <span class="header-avatar" id="header-avatar-txt" style="width: 36px; height: 36px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700;">S</span>
+              <button class="btn btn-secondary btn-sm" id="header-logout-btn" style="padding: 0.4rem 1rem; font-size: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); cursor: pointer;">Logout</button>
+            </div>
+          </div>
+          <!-- Hamburger Button for Mobile Menu -->
+          <button class="hamburger" id="mobile-hamburger-btn" aria-label="Open mobile menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- MOBILE NAVIGATION MENU -->
+    <aside class="mobile-nav" id="mobile-nav-panel">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#destinations">Destinations</a></li>
+        <li><a href="#packages">Packages</a></li>
+        <li><a href="#hotels">Hotels</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="mobile-auth-wrapper" style="margin-top: 2rem;">
+        <a href="#login" class="btn btn-primary" id="mobile-login-btn" style="width: 100%; text-align: center; display: block;">Login / Sign Up</a>
+        <div id="mobile-user-profile" style="display: none; flex-direction: column; gap: 1rem; text-align: center;">
+          <p style="font-weight: 600; color: var(--text-primary);" id="mobile-avatar-email">Logged in</p>
+          <button class="btn btn-secondary" id="mobile-logout-btn" style="width: 100%;">Logout</button>
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <!-- 1. HOME (Hero Section) -->
+      <section id="home" aria-label="Welcome to Wanderly">
+        <div class="hero-content">
+          <h1>Explore The<br />Beauty of The World</h1>
+          <p>Discover amazing places at exclusive deals, unlock unforgettable experiences, and tailor your dream travel itinerary today.</p>
+          <div class="hero-btns">
+            <a href="#destinations" class="btn btn-primary" id="hero-explore-btn">Explore Destinations</a>
+            <a href="#about" class="btn btn-secondary" id="hero-learn-btn">Learn More</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. SEARCH & BOOKING SECTION -->
+      <section class="booking-section" id="booking-widget-section" aria-label="Search and Book Services">
+        <div class="search-widget" id="main-search-widget">
+          <div class="widget-tabs" role="tablist">
+            <button class="tab-btn active" id="tab-flights" data-tab="flights" role="tab" aria-selected="true" aria-controls="flights-pane">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"></path></svg> Flights
+            </button>
+            <button class="tab-btn" id="tab-hotels" data-tab="hotels" role="tab" aria-selected="false" aria-controls="hotels-pane">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h18v3H3V3z"></path></svg> Hotels
+            </button>
+            <button class="tab-btn" id="tab-cars" data-tab="cars" role="tab" aria-selected="false" aria-controls="cars-pane">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m.9 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.5m-9-3h12m-12-3h12m-12-3h12M4.5 9h15l1 3.5v5.5H3.5v-5.5L4.5 9z"></path></svg> Cars
+            </button>
+            <button class="tab-btn" id="tab-tours" data-tab="tours" role="tab" aria-selected="false" aria-controls="tours-pane">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.89-2.445V4.774l-4.89 2.445m0 0L9.002 4.774l-4.89 2.445v11.78l4.89-2.445m5.002-8.25L9.002 4.774M9 15l-4.89 2.445"></path></svg> Tours
+            </button>
+          </div>
+
+          <!-- Flights Pane -->
+          <div class="tab-pane active" id="flights-pane" role="tabpanel" aria-labelledby="tab-flights">
+            <form id="flights-search-form" class="search-grid">
+              <div class="input-group">
+                <label for="flight-from">From</label>
+                <div class="input-field-wrapper">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path></svg>
+                  <input type="text" id="flight-from" placeholder="Departure City" required />
+                </div>
+              </div>
+              <div class="input-group">
+                <label for="flight-to">To</label>
+                <div class="input-field-wrapper">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path></svg>
+                  <input type="text" id="flight-to" placeholder="Arrival City" required />
+                </div>
+              </div>
+              <div class="input-group">
+                <label for="flight-depart">Depart</label>
+                <div class="input-field-wrapper">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"></path></svg>
+                  <input type="date" id="flight-depart" required />
+                </div>
+              </div>
+              <div class="input-group">
+                <label for="flight-class">Class</label>
+                <div class="input-field-wrapper">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.43l-1.003.828c-.293.241-.438.613-.43.992a7.723 7.723 0 010 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.43l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.991l-1.004-.827a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.28z"></path></svg>
+                  <select id="flight-class">
+                    <option value="economy">Economy</option>
+                    <option value="business">Business</option>
+                    <option value="first">First Class</option>
+                  </select>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary" id="btn-search-flights">Search</button>
+            </form>
+          </div>
+
+          <!-- Hotels Pane -->
+          <div class="tab-pane" id="hotels-pane" role="tabpanel" aria-labelledby="tab-hotels">
+            <form id="hotels-search-form" class="search-grid">
+              <div class="input-group">
+                <label for="hotel-city">Where</label>
+                <div class="input-field-wrapper">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path></svg>
+                  <input type="text" id="hotel-city" placeholder="Destination City" required />
+                </div>
+              </div>
+              <div class="input-group">
+                <label for="hotel-checkin">Check-In</label>
+                <div class="input-field-wrapper">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"></path></svg>
+                  <input type="date" id="hotel-checkin" required />
+                </div>
+              </div>
+              <div class="input-group">
+                <label for="hotel-checkout">Check-Out</label>
+                <div class="input-field-wrapper">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"></path></svg>
+                  <input type="date" id="hotel-checkout" required />
+                </div>
+              </div>
+              <div class="input-group">
+                <label for="hotel-guests">Guests</label>
+                <div class="input-field-wrapper">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
+                  <select id="hotel-guests">
+                    <option value="1">1 Guest</option>
+                    <option value="2">2 Guests</option>
+                    <option value="3">3 Guests</option>
+                    <option value="4">4+ Guests</option>
+                  </select>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary" id="btn-search-hotels">Search</button>
+            </form>
+          </div>
+
+          <!-- Cars Pane -->
+          <div class="tab-pane" id="cars-pane" role="tabpanel" aria-labelledby="tab-cars">
+            <form id="cars-search-form" class="search-grid">
+              <div class="input-group">
+                <label for="car-pickup">Pick Up</label>
+                <div class="input-field-wrapper">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path></svg>
+                  <input type="text" id="car-pickup" placeholder="Airport or City" required />
+                </div>
+              </div>
+              <div class="input-group">
+                <label for="car-pickup-date">Date</label>
+                <div class="input-field-wrapper">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"></path></svg>
+                  <input type="date" id="car-pickup-date" required />
+                </div>
+              </div>
+              <div class="input-group">
+                <label for="car-dropoff-date">Drop Off</label>
+                <div class="input-field-wrapper">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"></path></svg>
+                  <input type="date" id="car-dropoff-date" required />
+                </div>
+              </div>
+              <div class="input-group">
+                <label for="car-type">Type</label>
+                <div class="input-field-wrapper">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m.9 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.5m-9-3h12m-12-3h12m-12-3h12M4.5 9h15l1 3.5v5.5H3.5v-5.5L4.5 9z"></path></svg>
+                  <select id="car-type">
+                    <option value="sedan">Sedan</option>
+                    <option value="suv">SUV</option>
+                    <option value="luxury">Luxury Car</option>
+                    <option value="ev">Electric Vehicle</option>
+                  </select>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary" id="btn-search-cars">Search</button>
+            </form>
+          </div>
+
+          <!-- Tours Pane -->
+          <div class="tab-pane" id="tours-pane" role="tabpanel" aria-labelledby="tab-tours">
+            <form id="tours-search-form" class="search-grid">
+              <div class="input-group">
+                <label for="tour-dest">Destination</label>
+                <div class="input-field-wrapper">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path></svg>
+                  <input type="text" id="tour-dest" placeholder="Country or City" required />
+                </div>
+              </div>
+              <div class="input-group">
+                <label for="tour-month">Month</label>
+                <div class="input-field-wrapper">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"></path></svg>
+                  <select id="tour-month">
+                    <option value="any">Any Month</option>
+                    <option value="jul">July 2026</option>
+                    <option value="aug">August 2026</option>
+                    <option value="sep">September 2026</option>
+                    <option value="oct">October 2026</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input-group">
+                <label for="tour-type-select">Category</label>
+                <div class="input-field-wrapper">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.43l-1.003.828c-.293.241-.438.613-.43.992a7.723 7.723 0 010 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.43l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.991l-1.004-.827a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.28z"></path></svg>
+                  <select id="tour-type-select">
+                    <option value="all">All Categories</option>
+                    <option value="adventure">Adventure</option>
+                    <option value="beach">Beach & Coast</option>
+                    <option value="cultural">Heritage & Culture</option>
+                  </select>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary" id="btn-search-tours">Search</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. WHY CHOOSE US -->
+      <section id="why-choose-us" aria-label="Why Choose Wanderly">
+        <div class="section-header">
+          <span class="badge">Value Promise</span>
+          <h2>Why Choose Wanderly?</h2>
+          <p>We combine experience, client care, and top-tier hospitality to bring you flawless vacation experiences.</p>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="icon-box" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-1.971-.659-1.171-.879-1.171-2.303 0-3.182 1.171-.879 3.07-.879 4.242 0L15 8.818M12 3v3m0 12v3"></path></svg>
+            </div>
+            <h3>Best Price Guarantee</h3>
+            <p>Find a better rate? We will match it and offer a 10% discount voucher.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon-box" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.599-3.75A11.959 11.959 0 0112 2.714z"></path></svg>
+            </div>
+            <h3>Safe & Secure Travels</h3>
+            <p>Every booking includes standard travel assistance coverage and reliable support.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon-box" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path></svg>
+            </div>
+            <h3>Local Travel Experts</h3>
+            <p>Enjoy insider access and tailored guidance from our vetted regional travel experts.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon-box" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"></path></svg>
+            </div>
+            <h3>24/7 Support Desk</h3>
+            <p>Our dedicated travel concierge agents are available round-the-clock.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. ABOUT US -->
+      <section id="about" aria-label="About Wanderly">
+        <div class="about-grid">
+          <div class="about-images">
+            <div class="about-img-box">
+              <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80" alt="Travel camera and maps on workspace desk" />
+            </div>
+            <div class="about-img-box offset">
+              <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80" alt="Hiker overlooking scenic mountain valley" />
+            </div>
+          </div>
+          <div class="about-content">
+            <span class="badge">Who We Are</span>
+            <h2>We Help You Explore The World Comfortably</h2>
+            <p>Founded in 2014, Wanderly has guided over 50,000 travelers to their dream escapes. We believe travel is more than a change of space—it is an investment in unforgettable stories.</p>
+            <p>Whether you seek the tranquil beaches of Bali, the alpine heights of Switzerland, or the cultural highlights of Japan, our customized solutions guarantee safety, ease, and comfort.</p>
+            <div class="about-features">
+              <div class="about-feature-item">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Fully Bonded Agency
+              </div>
+              <div class="about-feature-item">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Vetted Hotels Only
+              </div>
+              <div class="about-feature-item">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Zero Hidden Fees
+              </div>
+              <div class="about-feature-item">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Instant Digital Tickets
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. POPULAR DESTINATIONS -->
+      <section id="destinations" aria-label="Popular Destinations">
+        <div class="section-header">
+          <span class="badge">Top Selections</span>
+          <h2>Popular Destinations</h2>
+          <p>Explore our trending spots with hand-curated guides and premium accommodations.</p>
+        </div>
+        <div class="destinations-grid">
+          <!-- Bali -->
+          <div class="dest-card">
+            <div class="card-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1555400038-63f5ba517a47?q=80" alt="Scenic tropical Bali temple" />
+              <div class="card-overlay">
+                <h3>Bali, Indonesia</h3>
+                <p>Tropical Paradise & Culture</p>
+                <div class="card-meta">
+                  <span class="price">From $499</span>
+                  <span class="rating">
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg> 4.9
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Greece -->
+          <div class="dest-card">
+            <div class="card-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1613395877344-13d4a8e0d49a?q=80" alt="White volcanic buildings in Santorini Greece" />
+              <div class="card-overlay">
+                <h3>Santorini, Greece</h3>
+                <p>Historic Coastal Luxury</p>
+                <div class="card-meta">
+                  <span class="price">From $599</span>
+                  <span class="rating">
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg> 4.8
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Switzerland -->
+          <div class="dest-card">
+            <div class="card-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80" alt="Snowy peaks and lakes of Switzerland alps" />
+              <div class="card-overlay">
+                <h3>Switzerland</h3>
+                <p>Breathtaking Alpine Retreat</p>
+                <div class="card-meta">
+                  <span class="price">From $899</span>
+                  <span class="rating">
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg> 4.95
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Tokyo -->
+          <div class="dest-card">
+            <div class="card-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=80" alt="Chureito pagoda looking at Mt Fuji Japan" />
+              <div class="card-overlay">
+                <h3>Tokyo, Japan</h3>
+                <p>High-Tech City & Temples</p>
+                <div class="card-meta">
+                  <span class="price">From $799</span>
+                  <span class="rating">
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg> 4.9
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. TOUR PACKAGES -->
+      <section id="packages" aria-label="Tour Packages">
+        <div class="section-header">
+          <span class="badge">All-Inclusive</span>
+          <h2>Featured Tour Packages</h2>
+          <p>Browse our popular all-inclusive itineraries complete with hotels, flights, and tours.</p>
+        </div>
+
+        <div class="filter-container">
+          <button class="filter-btn active" data-filter="all">All Packages</button>
+          <button class="filter-btn" data-filter="adventure">Adventure</button>
+          <button class="filter-btn" data-filter="beach">Beach</button>
+          <button class="filter-btn" data-filter="cultural">Cultural</button>
+        </div>
+
+        <div class="packages-grid">
+          <!-- Package 1 -->
+          <div class="package-card" data-category="adventure">
+            <div class="package-img">
+              <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80" alt="Mountain summit hike" />
+              <span class="package-badge">Best Seller</span>
+            </div>
+            <div class="package-content">
+              <div class="package-info">
+                <span>
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> 6 Days / 5 Nights
+                </span>
+                <span>
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path></svg> Swiss Alps
+                </span>
+              </div>
+              <h3>Alpine Summit Trek</h3>
+              <p>Climb breathtaking alpine pathways, stay in warm boutique log cabins, and ride cable cars to frozen panoramic peaks.</p>
+              <div class="package-footer">
+                <div class="package-price">
+                  <span class="price-from">Price starts at</span>
+                  <span class="amount">$1,199</span>
+                </div>
+                <button class="btn btn-primary auth-trigger">Book Now</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Package 2 -->
+          <div class="package-card" data-category="beach">
+            <div class="package-img">
+              <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80" alt="Maldives beach villas" />
+              <span class="package-badge">Luxury</span>
+            </div>
+            <div class="package-content">
+              <div class="package-info">
+                <span>
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> 8 Days / 7 Nights
+                </span>
+                <span>
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path></svg> Maldives
+                </span>
+              </div>
+              <h3>Water Villa Getaway</h3>
+              <p>Stay in private overwater bungalows with immediate ocean drops, private pools, personal butler services, and reef snorkeling.</p>
+              <div class="package-footer">
+                <div class="package-price">
+                  <span class="price-from">Price starts at</span>
+                  <span class="amount">$2,499</span>
+                </div>
+                <button class="btn btn-primary auth-trigger">Book Now</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Package 3 -->
+          <div class="package-card" data-category="cultural">
+            <div class="package-img">
+              <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80" alt="Kyoto historic temple structures" />
+              <span class="package-badge">Culture</span>
+            </div>
+            <div class="package-content">
+              <div class="package-info">
+                <span>
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> 7 Days / 6 Nights
+                </span>
+                <span>
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path></svg> Kyoto, Japan
+                </span>
+              </div>
+              <h3>Imperial Heritage Tour</h3>
+              <p>Explore shrines, take a guided tour with certified local historians, learn traditional tea prep, and walk bamboo forests.</p>
+              <div class="package-footer">
+                <div class="package-price">
+                  <span class="price-from">Price starts at</span>
+                  <span class="amount">$1,450</span>
+                </div>
+                <button class="btn btn-primary auth-trigger">Book Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. TRAVEL STATISTICS -->
+      <section id="statistics" aria-label="Travel Statistics">
+        <div class="stats-banner">
+          <div class="stat-item">
+            <span class="stat-number" data-target="15000" data-suffix="+">0</span>
+            <span class="stat-label">Happy Clients</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="250" data-suffix="+">0</span>
+            <span class="stat-label">Destinations Listed</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="120" data-suffix="+">0</span>
+            <span class="stat-label">Tour Operators Vetted</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="12" data-suffix="">0</span>
+            <span class="stat-label">Years of Travel Excellence</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10. SPECIAL OFFERS & COUNTDOWN -->
+      <section id="special-offers" aria-label="Special Deals">
+        <div class="section-header">
+          <span class="badge">Limited Offers</span>
+          <h2>Special Discount Deals</h2>
+          <p>Book early to secure these highly discounted luxury packages.</p>
+        </div>
+
+        <div class="offers-grid">
+          <!-- Offer 1 -->
+          <div class="offer-card">
+            <div class="offer-img">
+              <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80" alt="Eiffel Tower Paris" />
+              <span class="offer-tag">Save 20%</span>
+            </div>
+            <div class="offer-details">
+              <h3>Romantic Paris Escape</h3>
+              <p>Includes standard hotel suite, Louvre tickets, and Seine evening dinner cruise.</p>
+              <div class="offer-footer">
+                <div class="offer-price">
+                  <del>$1,299</del>
+                  <span>$999</span>
+                </div>
+                <button class="btn btn-outline auth-trigger">Claim</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Offer 2 -->
+          <div class="offer-card">
+            <div class="offer-img">
+              <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80" alt="Dubai skyscrapers" />
+              <span class="offer-tag">Save 15%</span>
+            </div>
+            <div class="offer-details">
+              <h3>Dubai Oasis Luxury</h3>
+              <p>Five-star hotel resort, desert dune safari, Burj Khalifa observation deck pass.</p>
+              <div class="offer-footer">
+                <div class="offer-price">
+                  <del>$999</del>
+                  <span>$849</span>
+                </div>
+                <button class="btn btn-outline auth-trigger">Claim</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timer Banner -->
+        <div class="promo-banner">
+          <div class="promo-content">
+            <h3>Flash Sale: Save up to 35%!</h3>
+            <p>Our global Summer Sale is active. Unlock premium deals across all packages. Hurry, room slots are filling up fast!</p>
+            <button class="btn btn-primary auth-trigger">Explore Flash Deals</button>
+          </div>
+          <div class="countdown-container">
+            <div class="countdown-box">
+              <span class="count" id="cd-days">00</span>
+              <span class="label">Days</span>
+            </div>
+            <div class="countdown-box">
+              <span class="count" id="cd-hours">00</span>
+              <span class="label">Hours</span>
+            </div>
+            <div class="countdown-box">
+              <span class="count" id="cd-minutes">00</span>
+              <span class="label">Mins</span>
+            </div>
+            <div class="countdown-box">
+              <span class="count" id="cd-seconds">00</span>
+              <span class="label">Secs</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 11. UPCOMING TRIPS -->
+      <section id="upcoming-trips" aria-label="Scheduled Group Trips">
+        <div class="section-header">
+          <span class="badge">Next Departures</span>
+          <h2>Upcoming Group Tours</h2>
+          <p>Join a guided cohort to make new lifelong travel buddies.</p>
+        </div>
+
+        <div class="trips-timeline">
+          <!-- Trip 1 -->
+          <div class="trip-row">
+            <div class="trip-date">
+              <span class="day">12</span>
+              <span class="month-year"><span>AUG</span><span>2026</span></span>
+            </div>
+            <div class="trip-destination">
+              <h4>Iceland Northern Lights</h4>
+              <span>10 Days Expedition</span>
+            </div>
+            <div class="trip-seats">
+              <span><span>Seats Left: 3 / 15</span><span>80% Filled</span></span>
+              <div class="seats-bar"><div class="seats-progress" style="width: 80%;"></div></div>
+            </div>
+            <button class="btn btn-primary auth-trigger">Join Tour</button>
+          </div>
+
+          <!-- Trip 2 -->
+          <div class="trip-row">
+            <div class="trip-date">
+              <span class="day">28</span>
+              <span class="month-year"><span>AUG</span><span>2026</span></span>
+            </div>
+            <div class="trip-destination">
+              <h4>Patagonia Wild Trek</h4>
+              <span>14 Days Hiking Adventure</span>
+            </div>
+            <div class="trip-seats">
+              <span><span>Seats Left: 6 / 12</span><span>50% Filled</span></span>
+              <div class="seats-bar"><div class="seats-progress" style="width: 50%;"></div></div>
+            </div>
+            <button class="btn btn-primary auth-trigger">Join Tour</button>
+          </div>
+
+          <!-- Trip 3 -->
+          <div class="trip-row">
+            <div class="trip-date">
+              <span class="day">05</span>
+              <span class="month-year"><span>SEP</span><span>2026</span></span>
+            </div>
+            <div class="trip-destination">
+              <h4>Amalfi Coast Holiday</h4>
+              <span>8 Days Leisure Vacation</span>
+            </div>
+            <div class="trip-seats">
+              <span><span>Seats Left: 9 / 18</span><span>50% Filled</span></span>
+              <div class="seats-bar"><div class="seats-progress" style="width: 50%;"></div></div>
+            </div>
+            <button class="btn btn-primary auth-trigger">Join Tour</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 12. HOTEL BOOKING -->
+      <section id="hotels" aria-label="Featured Hotels">
+        <div class="section-header">
+          <span class="badge">Hotels & Resorts</span>
+          <h2>Featured Partner Hotels</h2>
+          <p>Book verified stays with daily breakfasts, late check-outs, and resort credits.</p>
+        </div>
+
+        <div class="hotels-grid">
+          <!-- Hotel 1 -->
+          <div class="hotel-card">
+            <div class="hotel-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80" alt="Ocean breeze resort pool and palms" />
+              <div class="hotel-rating-badge">
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg> 4.9
+              </div>
+            </div>
+            <div class="hotel-content">
+              <h3>Ocean Breeze Resort</h3>
+              <div class="hotel-location">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path></svg> Bali, Indonesia
+              </div>
+              <div class="hotel-amenities">
+                <span class="amenity-tag">Free WiFi</span>
+                <span class="amenity-tag">Infinity Pool</span>
+                <span class="amenity-tag">Spa</span>
+              </div>
+              <div class="hotel-footer">
+                <div class="hotel-price">
+                  <span class="amount">$249</span><label>/ night</label>
+                </div>
+                <button class="btn btn-outline btn-sm auth-trigger">Book Room</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hotel 2 -->
+          <div class="hotel-card">
+            <div class="hotel-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80" alt="Alpine chalet hotel balcony" />
+              <div class="hotel-rating-badge">
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg> 4.8
+              </div>
+            </div>
+            <div class="hotel-content">
+              <h3>Chalet Alpine Peak</h3>
+              <div class="hotel-location">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path></svg> Zermatt, Switzerland
+              </div>
+              <div class="hotel-amenities">
+                <span class="amenity-tag">Ski Storage</span>
+                <span class="amenity-tag">Sauna</span>
+                <span class="amenity-tag">Fireplace</span>
+              </div>
+              <div class="hotel-footer">
+                <div class="hotel-price">
+                  <span class="amount">$380</span><label>/ night</label>
+                </div>
+                <button class="btn btn-outline btn-sm auth-trigger">Book Room</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hotel 3 -->
+          <div class="hotel-card">
+            <div class="hotel-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80" alt="Kyoto historic luxury inn" />
+              <div class="hotel-rating-badge">
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg> 4.95
+              </div>
+            </div>
+            <div class="hotel-content">
+              <h3>Traditional Ryokan Sakura</h3>
+              <div class="hotel-location">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path></svg> Kyoto, Japan
+              </div>
+              <div class="hotel-amenities">
+                <span class="amenity-tag">Onsen Bath</span>
+                <span class="amenity-tag">Gardens</span>
+                <span class="amenity-tag">Breakfast</span>
+              </div>
+              <div class="hotel-footer">
+                <div class="hotel-price">
+                  <span class="amount">$290</span><label>/ night</label>
+                </div>
+                <button class="btn btn-outline btn-sm auth-trigger">Book Room</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hotel 4 -->
+          <div class="hotel-card">
+            <div class="hotel-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80" alt="Resort suite view" />
+              <div class="hotel-rating-badge">
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg> 4.7
+              </div>
+            </div>
+            <div class="hotel-content">
+              <h3>Royal Desert Oasis</h3>
+              <div class="hotel-location">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path></svg> Dubai, UAE
+              </div>
+              <div class="hotel-amenities">
+                <span class="amenity-tag">Desert Views</span>
+                <span class="amenity-tag">Gym</span>
+                <span class="amenity-tag">Pool Side</span>
+              </div>
+              <div class="hotel-footer">
+                <div class="hotel-price">
+                  <span class="amount">$310</span><label>/ night</label>
+                </div>
+                <button class="btn btn-outline btn-sm auth-trigger">Book Room</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 13. TRANSPORT SERVICES -->
+      <section id="transports" aria-label="Transport Services">
+        <div class="section-header">
+          <span class="badge">Transit Options</span>
+          <h2>Transport & Car Rentals</h2>
+          <p>Book private vehicles, airport shuttles, and chauffeur services with reliable local rates.</p>
+        </div>
+
+        <div class="transport-grid">
+          <!-- Car Rentals -->
+          <div class="transport-card">
+            <div class="transport-header">
+              <div class="transport-icon" aria-hidden="true">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m.9 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.5m-9-3h12m-12-3h12m-12-3h12M4.5 9h15l1 3.5v5.5H3.5v-5.5L4.5 9z"></path></svg>
+              </div>
+              <h3>Boutique Car Rentals</h3>
+            </div>
+            <p>Pick up direct from terminal bays. Standard full tank, GPS dashboards, and zero mileage charges included.</p>
+            <div class="transport-list">
+              <div class="transport-item">
+                <div class="transport-info">
+                  <h4>Electric Compact Tesla</h4>
+                  <p>Fits 4 Baggage, Auto Pilot Assist</p>
+                </div>
+                <span class="rate">$75 / day</span>
+              </div>
+              <div class="transport-item">
+                <div class="transport-info">
+                  <h4>Luxury 4x4 Mountain SUV</h4>
+                  <p>Fits 6 Baggage, All Terrain AWD</p>
+                </div>
+                <span class="rate">$99 / day</span>
+              </div>
+            </div>
+            <button class="btn btn-secondary auth-trigger">Browse Car Fleet</button>
+          </div>
+
+          <!-- Airport Transfers -->
+          <div class="transport-card">
+            <div class="transport-header">
+              <div class="transport-icon" aria-hidden="true">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"></path></svg>
+              </div>
+              <h3>Airport Transfer Shuttles</h3>
+            </div>
+            <p>Driver meets you at arrivals holding your name banner. Flight monitoring guarantees pickup even during delays.</p>
+            <div class="transport-list">
+              <div class="transport-item">
+                <div class="transport-info">
+                  <h4>Private Sedan Pickup</h4>
+                  <p>Direct to Hotel, Bottled Waters Included</p>
+                </div>
+                <span class="rate">$45 fixed</span>
+              </div>
+              <div class="transport-item">
+                <div class="transport-info">
+                  <h4>Executive Executive Van</h4>
+                  <p>Group shuttle seating up to 10 travelers</p>
+                </div>
+                <span class="rate">$70 fixed</span>
+              </div>
+            </div>
+            <button class="btn btn-secondary auth-trigger">Book Airport Pickup</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 14. FOOD & DINING -->
+      <section id="dining" aria-label="Gourmet Food Tours">
+        <div class="section-header">
+          <span class="badge">Culinary Journeys</span>
+          <h2>Food & Dining Experiences</h2>
+          <p>Savor regional delicacies with private cooking guides and authentic dining events.</p>
+        </div>
+
+        <div class="food-grid">
+          <!-- Food 1 -->
+          <div class="food-card">
+            <div class="food-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80" alt="Sushi preparation" />
+            </div>
+            <div class="food-content">
+              <span class="food-meta">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> 4 Hours Tour
+              </span>
+              <h3>Tokyo Tsukiji Market Quest</h3>
+              <p>Sample sea urchin sashimi, sweet rolled egg omelets, and watch master chefs filet fresh Bluefin tuna.</p>
+            </div>
+          </div>
+
+          <!-- Food 2 -->
+          <div class="food-card">
+            <div class="food-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80" alt="Fresh pasta dish" />
+            </div>
+            <div class="food-content">
+              <span class="food-meta">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> 5 Hours Class
+              </span>
+              <h3>Tuscany Pasta Cooking Class</h3>
+              <p>Learn how to knead pasta dough from scratch in an ancient countryside farmhouse cellar overlooking vine terraces.</p>
+            </div>
+          </div>
+
+          <!-- Food 3 -->
+          <div class="food-card">
+            <div class="food-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80" alt="Salad and gourmet dining table" />
+            </div>
+            <div class="food-content">
+              <span class="food-meta">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Evening Event
+              </span>
+              <h3>Parisian Patisserie Tour</h3>
+              <p>Visit historic city bakeries to taste buttery croissants, colorful macarons, and learn chocolate making secrets.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 15. ADVENTURE ACTIVITIES -->
+      <section id="activities" aria-label="Adventure Activities">
+        <div class="section-header">
+          <span class="badge">Adrenaline Rush</span>
+          <h2>Adventure Activities</h2>
+          <p>Add thrills to your package itineraries. Insured guides accompany all outdoor tours.</p>
+        </div>
+
+        <div class="adventure-grid">
+          <!-- Act 1 -->
+          <div class="adv-card auth-trigger">
+            <div class="adv-img-box">
+              <img src="https://images.unsplash.com/photo-1521336575822-6da63fb45455?q=80" alt="Paraglider soaring over valleys" />
+            </div>
+            <div class="adv-content">
+              <h3>Alps Paragliding Flight</h3>
+              <div class="adv-level">
+                <span class="level-badge easy">Tandem / Safe</span>
+                <span class="adv-price">$180</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Act 2 -->
+          <div class="adv-card auth-trigger">
+            <div class="adv-img-box">
+              <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80" alt="Diver swimming with sea turtle" />
+            </div>
+            <div class="adv-content">
+              <h3>Reef Scuba Diving</h3>
+              <div class="adv-level">
+                <span class="level-badge medium">Mid Level</span>
+                <span class="adv-price">$145</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Act 3 -->
+          <div class="adv-card auth-trigger">
+            <div class="adv-img-box">
+              <img src="https://images.unsplash.com/photo-1522163182402-834f871fd851?q=80" alt="Climber scaling sheer wall" />
+            </div>
+            <div class="adv-content">
+              <h3>Utah Canyon Climbing</h3>
+              <div class="adv-level">
+                <span class="level-badge hard">Challenging</span>
+                <span class="adv-price">$195</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Act 4 -->
+          <div class="adv-card auth-trigger">
+            <div class="adv-img-box">
+              <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80" alt="Hikers with backpacks" />
+            </div>
+            <div class="adv-content">
+              <h3>Fuji Summit Day-Hike</h3>
+              <div class="adv-level">
+                <span class="level-badge medium">Moderate</span>
+                <span class="adv-price">$120</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. TRAVEL GALLERY (Interactive lightbox) -->
+      <section id="gallery" aria-label="Travel Gallery">
+        <div class="section-header">
+          <span class="badge">Travel Inspo</span>
+          <h2>Wanderly Travel Gallery</h2>
+          <p>Snapshots captured by our guides and satisfied clients. Click images to open standard lightbox zoom view.</p>
+        </div>
+
+        <div class="gallery-grid">
+          <div class="gallery-item wide">
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80" alt="Beautiful sandy beach during sunset" />
+            <div class="gallery-overlay">
+              <h4>Sunny Shoreline Escape</h4>
+              <span>Bali, Indonesia</span>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80" alt="Snow peak mountain range" />
+            <div class="gallery-overlay">
+              <h4>Matterhorn Peaks</h4>
+              <span>Zermatt, Switzerland</span>
+            </div>
+          </div>
+          <div class="gallery-item tall">
+            <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80" alt="Boat cruising downstream" />
+            <div class="gallery-overlay">
+              <h4>Traditional Lake Cruise</h4>
+              <span>Kyoto, Japan</span>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80" alt="Desert landscape road" />
+            <div class="gallery-overlay">
+              <h4>Canyon Highway</h4>
+              <span>Arizona, USA</span>
+            </div>
+          </div>
+          <div class="gallery-item wide">
+            <img src="https://images.unsplash.com/photo-1483683804221-41a52c4ad747?q=80" alt="Wooded forest path" />
+            <div class="gallery-overlay">
+              <h4>Ancient Redwoods Path</h4>
+              <span>California, USA</span>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1440778303588-435521a205bc?q=80" alt="Beach chairs under umbrella" />
+            <div class="gallery-overlay">
+              <h4>Seaside Retreat Cabanas</h4>
+              <span>Maldives</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 16. TRAVEL MAP (Interactive Map Pin Overlay Showcase) -->
+      <section id="travel-map" aria-label="Interactive Destination Map">
+        <div class="section-header">
+          <span class="badge">Global Network</span>
+          <h2>Wanderly Hotspot Map</h2>
+          <p>Hover over markers to view travel spots. Click map pins to trigger fast package notifications.</p>
+        </div>
+
+        <div class="map-container">
+          <div class="map-canvas-mock">
+            <!-- SVG Map Silhouette -->
+            <svg fill="currentColor" viewBox="0 0 1000 450" xmlns="http://www.w3.org/2000/svg">
+              <path d="M150 150h30v20h-30zm80 40h40v30h-40zm120-80h50v20h-50zm180 120h40v20h-40zm150-100h35v25h-35zm120 180h30v20h-30z" />
+              <circle cx="200" cy="180" r="120" />
+              <circle cx="450" cy="160" r="140" />
+              <circle cx="750" cy="220" r="110" />
+            </svg>
+
+            <!-- Map pins -->
+            <div class="map-pin" style="top: 25%; left: 18%;" data-location="North America Gateway" data-price="$899">
+              <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              <div class="pin-label">New York ($899)</div>
+            </div>
+
+            <div class="map-pin" style="top: 35%; left: 46%;" data-location="European Alps Retreat" data-price="$1199">
+              <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              <div class="pin-label">Switzerland ($1,199)</div>
+            </div>
+
+            <div class="map-pin" style="top: 55%; left: 62%;" data-location="Middle Eastern Luxury" data-price="$849">
+              <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              <div class="pin-label">Dubai ($849)</div>
+            </div>
+
+            <div class="map-pin" style="top: 42%; left: 82%;" data-location="Imperial Japanese Heritage" data-price="$1450">
+              <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              <div class="pin-label">Tokyo ($1,450)</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. CUSTOMER REVIEWS (Slider Carousel) -->
+      <section id="reviews" aria-label="Customer Reviews">
+        <div class="section-header">
+          <span class="badge">Social Proof</span>
+          <h2>Client Reviews</h2>
+          <p>Read honest reviews from our verified global travelers.</p>
+        </div>
+
+        <div class="reviews-container">
+          <button class="btn-icon slider-control prev" aria-label="Previous review">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path></svg>
+          </button>
+          
+          <div class="reviews-slider">
+            <!-- Review 1 -->
+            <div class="review-slide">
+              <div class="review-content">
+                <div class="review-rating" aria-label="5 stars rating">
+                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                </div>
+                <p class="review-text">"Wanderly made our Maldives honeymoon completely stress-free. From airport transfer pickups to overwater villas booking, everything was absolute perfection. Highly recommended!"</p>
+                <div class="review-user">
+                  <div class="review-user-avatar">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80" alt="Sarah Jenkins portrait" />
+                  </div>
+                  <span class="review-user-name">Sarah Jenkins</span>
+                  <span class="review-user-role">Maldives Traveler</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="review-slide">
+              <div class="review-content">
+                <div class="review-rating" aria-label="5 stars rating">
+                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                </div>
+                <p class="review-text">"The Alpine Summit Trek in Switzerland was outstanding. Vetted local tour guides had deep route knowledge, cabin views were lovely, and customer support answered inside 5 mins."</p>
+                <div class="review-user">
+                  <div class="review-user-avatar">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80" alt="Marcus Thompson portrait" />
+                  </div>
+                  <span class="review-user-name">Marcus Thompson</span>
+                  <span class="review-user-role">Swiss Alps Adventurer</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="review-slide">
+              <div class="review-content">
+                <div class="review-rating" aria-label="5 stars rating">
+                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                  <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                </div>
+                <p class="review-text">"Kyoto food and garden tour was beautiful. Everything felt authentic and the luxury hotels Ryokan included in the package was the highlight of our entire trip. Will book again."</p>
+                <div class="review-user">
+                  <div class="review-user-avatar">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80" alt="Clara Sterling portrait" />
+                  </div>
+                  <span class="review-user-name">Clara Sterling</span>
+                  <span class="review-user-role">Japan Explorer</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn-icon slider-control next" aria-label="Next review">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path></svg>
+          </button>
+
+          <!-- Slider Dots -->
+          <div class="slider-dots"></div>
+        </div>
+      </section>
+
+      <!-- 17. FREQUENTLY ASKED QUESTIONS (FAQ Accordion) -->
+      <section id="faq" aria-label="Frequently Asked Questions">
+        <div class="section-header">
+          <span class="badge">Support Help</span>
+          <h2>Frequently Asked Questions</h2>
+          <p>Quick answers to common questions about booking, policies, and itineraries.</p>
+        </div>
+
+        <div class="faq-container">
+          <!-- Item 1 -->
+          <div class="faq-item">
+            <button class="faq-trigger" aria-expanded="false">
+              <h3>What is included in the base package price?</h3>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg>
+            </button>
+            <div class="faq-content">
+              <p>Our standard all-inclusive tour packages cover round-trip flight bookings, 4-star boutique hotel rooms, daily breakfast sets, local tour guide fees, and tourist attraction entry passes.</p>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="faq-item">
+            <button class="faq-trigger" aria-expanded="false">
+              <h3>Can I customize or extend my travel itinerary?</h3>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg>
+            </button>
+            <div class="faq-content">
+              <p>Yes, absolutely! Speak directly with our dedicated travel experts to add custom day excursions, upgrade hotel suites, extend stays, or adjust transport car models.</p>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="faq-item">
+            <button class="faq-trigger" aria-expanded="false">
+              <h3>What are your cancelation and refund policies?</h3>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg>
+            </button>
+            <div class="faq-content">
+              <p>Bookings canceled up to 14 days before scheduled departure are eligible for a 100% refund voucher. Cancellations made within 14 days may carry nominal lodging provider cancellation fees.</p>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="faq-item">
+            <button class="faq-trigger" aria-expanded="false">
+              <h3>Do you provide travel insurance options?</h3>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path></svg>
+            </button>
+            <div class="faq-content">
+              <p>Yes, we offer basic travel emergency medical coverage, flight cancellation guarantees, and baggage protection add-ons through our partner underwriters during final payment checkouts.</p>
+            </div>
+      </section>
+
+      <!-- 19. LOGIN & SIGN UP PORTAL -->
+      <section id="login" aria-label="Login or Sign Up Section">
+        <div class="auth-container">
+          <div class="auth-box">
+            <!-- Normal forms container -->
+            <div id="auth-forms-container">
+              <div class="section-header">
+                <h2>Access Your Portal</h2>
+                <p>Explore the beauty of the world with us.</p>
+              </div>
+              
+              <div class="auth-tabs" role="tablist">
+                <button class="auth-tab-btn active" data-tab="login" role="tab" aria-selected="true">Sign In</button>
+                <button class="auth-tab-btn" data-tab="signup" role="tab" aria-selected="false">Create Account</button>
+              </div>
+              
+              <div class="auth-body">
+                <!-- Login form panel -->
+                <form id="inline-login-form" class="auth-form-panel active">
+                  <div class="form-group">
+                    <label for="inline-login-email">Email Address</label>
+                    <input type="email" id="inline-login-email" placeholder="alex@example.com" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="inline-login-pass">Password</label>
+                    <input type="password" id="inline-login-pass" placeholder="Enter your password" required />
+                  </div>
+                  <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
+                </form>
+  
+                <!-- Register form panel -->
+                <form id="inline-signup-form" class="auth-form-panel">
+                  <div class="form-group">
+                    <label for="inline-reg-name">Full Name</label>
+                    <input type="text" id="inline-reg-name" placeholder="John Doe" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="inline-reg-email">Email Address</label>
+                    <input type="email" id="inline-reg-email" placeholder="john@example.com" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="inline-reg-pass">Password</label>
+                    <input type="password" id="inline-reg-pass" placeholder="Create strong password" required />
+                  </div>
+                  <button type="submit" class="btn btn-primary" style="width: 100%;">Register</button>
+                </form>
+              </div>
+            </div>
+  
+            <!-- Logged-in profile container (hidden by default) -->
+            <div id="auth-logged-in-container" style="display: none;">
+              <div class="section-header">
+                <h2>Welcome Back, Explorer!</h2>
+                <p>You have successfully logged into your portal.</p>
+              </div>
+              <div class="user-profile-card">
+                <div class="user-profile-avatar" id="user-avatar-char">S</div>
+                <div class="user-profile-details">
+                  <h3 id="user-profile-email">email@example.com</h3>
+                  <span class="user-badge-level">Gold Member 🏅</span>
+                </div>
+              </div>
+              <div class="user-profile-stats">
+                <div class="u-stat"><strong>4</strong><span>Trips</span></div>
+                <div class="u-stat"><strong>2</strong><span>Active</span></div>
+                <div class="u-stat"><strong>3.2k</strong><span>Points</span></div>
+              </div>
+              <button class="btn btn-primary" id="btn-inline-logout" style="width: 100%; margin-top: 1.5rem;">Sign Out / Logout</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 18. CONTACT US -->
+      <section id="contact" aria-label="Contact Wanderly Support">
+        <div class="contact-layout">
+          <div class="contact-info">
+            <span class="badge">Get in Touch</span>
+            <h2>We Are Ready to Help You Plan</h2>
+            <p>Reach out directly. Our average email response time is under 2 hours during active business shifts.</p>
+            
+            <div class="contact-card">
+              <div class="contact-icon" aria-hidden="true">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"></path></svg>
+              </div>
+              <div class="contact-details">
+                <h3>Email Us Directly</h3>
+                <p>support@wanderly-travel.com</p>
+                <p>sales@wanderly-travel.com</p>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="contact-icon" aria-hidden="true">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-1.514 2.018a14.617 14.617 0 01-7.227-7.228l2.018-1.513c.361-.272.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"></path></svg>
+              </div>
+              <div class="contact-details">
+                <h3>Call Our Travel Desk</h3>
+                <p>+1 (800) 234-5678 (Toll-Free)</p>
+                <p>+1 (415) 987-6543 (Direct Dial)</p>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="contact-icon" aria-hidden="true">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path></svg>
+              </div>
+              <div class="contact-details">
+                <h3>Headquarters Address</h3>
+                <p>123 Travel Street, Suite 400</p>
+                <p>San Francisco, CA 94111, USA</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form-box">
+            <form id="contact-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="contact-name">Your Name</label>
+                  <input type="text" id="contact-name" placeholder="John Doe" required />
+                </div>
+                <div class="form-group">
+                  <label for="contact-email">Email Address</label>
+                  <input type="email" id="contact-email" placeholder="john@example.com" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="contact-subject">Subject</label>
+                <input type="text" id="contact-subject" placeholder="Plan my Bali Trip" required />
+              </div>
+              <div class="form-group">
+                <label for="contact-msg">Your Message</label>
+                <textarea id="contact-msg" rows="5" placeholder="Include target departure dates, guest counts, and destinations details..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" id="btn-submit-contact" style="width: 100%;">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- 20. NEWSLETTER SUBSCRIPTION -->
+      <section id="newsletter" aria-label="Newsletter Subscription">
+        <div class="newsletter-banner">
+          <h2>Subscribe to Newsletter</h2>
+          <p>Get early notifications for special flash deal codes, seasonal package sales, and monthly travel guides.</p>
+          <form class="newsletter-form" id="newsletter-form">
+            <input type="email" id="newsletter-email" placeholder="Enter your email address" required aria-label="Newsletter email input" />
+            <button type="submit" class="btn btn-primary" id="btn-subscribe">Subscribe</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- 24. FOOTER & 25. SOCIAL MEDIA LINKS -->
+    <footer>
+      <div class="footer-grid">
+        <div class="footer-info">
+          <div class="logo"><span>✈</span> Wanderly</div>
+          <p>Let's make your next journey your best adventure yet. Hand-picked hotels, customized flight routes, and professional operators at the best price.</p>
+          <div class="social-links">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Facebook link">
+              <svg fill="currentColor" viewBox="0 0 24 24"><path d="M9 8H7v3h2v9h3v-9h2.72l.42-3H12V6.63c0-.88.22-1.12.87-1.12H15V2h-2.73c-3.07 0-4.27 1.43-4.27 3.82V8z"></path></svg>
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Twitter link">
+              <svg fill="currentColor" viewBox="0 0 24 24"><path d="M23.95 4.57a10 10 0 01-2.82.78 4.96 4.96 0 002.16-2.72c-.95.55-2 .95-3.12 1.18a4.92 4.92 0 00-8.38 4.48A14 14 0 011.64 3.16a4.93 4.93 0 001.52 6.57 4.9 4.9 0 002.23-.61v.06a4.92 4.92 0 003.95 4.83 4.9 4.9 0 01-2.22.08 4.93 4.93 0 004.6 3.42A9.9 9.9 0 010 19.54a13.9 13.9 0 007.55 2.21c9.06 0 14-7.5 14-14v-.64a10 10 0 002.4-2.54z"></path></svg>
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram link">
+              <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"></path></svg>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn link">
+              <svg fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#destinations">Destinations</a></li>
+            <li><a href="#packages">Tour Packages</a></li>
+            <li><a href="#hotels">Hotels Booking</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Support & Help</h4>
+          <ul class="footer-links">
+            <li><a href="#faq">Frequently Asked FAQ</a></li>
+            <li><a href="#contact">Contact Support</a></li>
+            <li><a href="#booking-widget-section">Cancel Booking</a></li>
+            <li><a href="#why-choose-us">Safety Policies</a></li>
+            <li><a href="#reviews">Client Testimonials</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Legal Notice</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Privacy Policy</a></li>
+            <li><a href="#home">Terms of Service</a></li>
+            <li><a href="#home">Refund Policies</a></li>
+            <li><a href="#home">Tour Licensing</a></li>
+            <li><a href="#home">Accessibility Info</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Wanderly Travel Ltd. All Rights Reserved.</p>
+        <div class="footer-legal">
+          <a href="#home">Privacy</a>
+          <a href="#home">Terms</a>
+          <a href="#home">Cookies</a>
+        </div>
+      </div>
+    </footer>
+
+
+
+    <!-- 22. BACK TO TOP BUTTON -->
+    <button class="back-to-top animate" id="btn-back-to-top" aria-label="Scroll back to top">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5"></path></svg>
+    </button>
+  </body>
+</html>
